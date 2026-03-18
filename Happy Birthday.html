@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-top: 30px;
+}
+
+/* 💬 Message Box */
+.message-box {
+    background: rgba(255,255,255,0.15);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Button */
+.btn {
+    background: #fff;
+    color: #ff4b5c;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.btn:hover {
+    background: #ff4b5c;
+    color: #fff;
+}
+
+/* Canvas */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+
+    <h1>✨💖 Happy Birthday, Nilu Patiyow 🎂🌸🎀</h1>
+
+    <!-- 💬 Message -->
+    <div class="message-box" id="message"></div>
+
+    <button class="btn" onclick="startAll()">Celebrate 🎊</button>
+</div>
+
+<script>
+// 💬 Full Message
+const text = `Happy Birthday, Nilu 🎂✨
+
+Today is all about you, and I just wanted to make sure you know how special this day really is. Birthdays come once a year, but the kind of person you are is something rare — and it deserves to be appreciated every single day.
+
+I hope when you wake up today, you feel a little extra happiness in your heart, and as the day goes on, that feeling only grows stronger. You deserve smiles that don’t fade, laughter that feels real, and moments that you’ll remember for a long time. Life gets busy sometimes, but today is your reminder to slow down and enjoy being you.
+
+There’s something really special about the way you carry yourself — the way you smile, the way you talk, and the way you bring a certain kind of calm and happiness to the people around you. Not everyone has that, but you do. And I hope you never change that about yourself.
+
+I truly wish that this new year of your life brings you closer to your dreams, whatever they may be. May you find success in everything you work for, strength in every challenge, and happiness in both big and small moments. And even on the days that aren’t perfect, I hope you remember how strong and amazing you really are.
+
+Sometimes we don’t say things like this enough, but you are appreciated more than you probably realize. The little things you do, the way you are — it matters, and it makes a difference.
+
+So today, enjoy everything — the wishes, the surprises, the laughter, the love. Take lots of photos, eat your favorite things, and make memories that will stay with you forever.
+
+Once again, Happy Birthday, Nilu 🎉
+I hope this year turns out to be one of the best chapters of your life.
+
+— Someone who genuinely wishes you happiness 😊`;
+
+let i = 0;
+
+// 💬 Typing Effect
+function typeMessage(){
+    if(i < text.length){
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeMessage, 15);
+    }
+}
+
+// 🎉 Start All
+function startAll(){
+    typeMessage();
+    startConfetti();
+}
+
+// 🎊 Confetti
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+
+function createConfetti() {
+    for (let i = 0; i < 150; i++) {
+        confetti.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 6 + 2,
+            d: Math.random() * 50,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`
+        });
+    }
+}
+
+function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach((c) => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        c.y += 2;
+        if (c.y > canvas.height) c.y = 0;
+    });
+}
+
+function startConfetti() {
+    confetti = [];
+    createConfetti();
+    setInterval(drawConfetti, 20);
+}
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
